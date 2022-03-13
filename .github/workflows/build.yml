@@ -27,5 +27,5 @@ jobs:
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           cd docs
           mkdocs build
-          mv docs/site/* ./
+          mv site/* ./
           git push origin gh-pages
