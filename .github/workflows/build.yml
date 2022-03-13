@@ -36,6 +36,6 @@ jobs:
         with:
           BASE_BRANCH: main
           BRANCH: gh-pages
-          FOLDER: docs/site
+          FOLDER: site
           CLEAN: true
           SSH: true
