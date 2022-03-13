@@ -21,9 +21,10 @@ jobs:
           pip install mkdocs-material
       - name: run mkdocs
         run: |
+          git checkout -b gh-pages
           git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git pull origin gh-pages
-          cd docs
-          mkdocs gh-deploy
+          mkdocs build
+          mv docs/site/* ./
+          git push origin gh-pages
