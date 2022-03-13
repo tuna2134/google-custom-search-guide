@@ -15,20 +15,27 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.9'
+          
       - name: install lib
         run: |
           pip install mkdocs
           pip install mkdocs-material
+          
+      - name: Install SSH Client 🔑
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          
       - name: run mkdocs
         run: |
-          git checkout -b gh-pages
-          git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
-          git config --global user.name "${GITHUB_ACTOR}"
-          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           cd docs
           mkdocs build
-          mv site/* ./
-          cd ../
-          git add ./
-          git commit -m deploy
-          git push origin gh-pages
+          
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          BASE_BRANCH: main
+          BRANCH: gh-pages
+          FOLDER: docs/site
+          CLEAN: true
+          SSH: true
