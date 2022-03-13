@@ -1,1 +1,8 @@
-site_name: My Docs
+site_name: google-custom-search guide
+
+theme: 'material'
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: '#'
