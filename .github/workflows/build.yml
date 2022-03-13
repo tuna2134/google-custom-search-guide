@@ -1,0 +1,24 @@
+name: build mkdocs
+
+on:
+  push:
+    branch:
+      - "main"
+  
+jobs:
+  build:
+    name: build mkdocs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name:
+        run: |
+          pip install mkdocs
+          pip install mkdocs-material
+      - name:
+        run: |
+          mkdocs gh-deploy
